@@ -18,6 +18,7 @@ services:
     - BACKUP_TITLE="My-Stuff"
     - TZ=America/Chicago
     - RCLONE_REMOTE_NAME="My-Remote"
+    - RCLONE_REMOTE_BACKUP_PATH="bucket/then/path"
     - KEEP_STATS=true
     # - BACKUP_15MIN=true
     # - BACKUP_HOURLY
