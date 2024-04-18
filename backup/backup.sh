@@ -44,7 +44,14 @@ if [[ -z "$RCLONE_S3_SECRET_ACCESS_KEY" ]]; then
     fi
 fi
 
+if [[ ! -r /rclone.conf ]]; then
+    echo "No rclone config file at /rclone.conf! aborting"
+    exit 1
+fi
+
 RCOMMAND=("rclone")
+RCOMMAND+=("-P")
+RCOMMAND+=("--config=/rclone.conf")
 RCOMMAND+=("sync")
 RCOMMAND+=("/borgdir/")
 RCOMMAND+=("${RCLONE_REMOTE_NAME}:/${BACKUP_TITLE}/")
