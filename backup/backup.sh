@@ -26,6 +26,24 @@ else
     "${COMMAND[@]}"
 fi
 
+if [[ -z "$RCLONE_S3_ACCESS_KEY_ID" ]]; then
+    if [[ "$RCLONE_S3_ACCESS_KEY_ID_FILE" ]]; then
+        RCLONE_S3_ACCESS_KEY_ID=$(cat "${RCLONE_S3_ACCESS_KEY_ID_FILE}")
+    else
+        echo "No key provided for RCLONE_S3_ACCESS_KEY_ID - aborting rclone upload".
+        exit 1
+    fi
+fi
+
+if [[ -z "$RCLONE_S3_SECRET_ACCESS_KEY" ]]; then
+    if [[ "$RCLONE_S3_SECRET_ACCESS_KEY_FILE" ]]; then
+        RCLONE_S3_SECRET_ACCESS_KEY=$(cat "${RCLONE_S3_SECRET_ACCESS_KEY_FILE}")
+    else
+        echo "No key provided for RCLONE_S3_ACCESS_KEY_ID - aborting rclone upload".
+        exit 1
+    fi
+fi
+
 RCOMMAND=("rclone")
 RCOMMAND+=("sync")
 RCOMMAND+=("/borgdir/")
