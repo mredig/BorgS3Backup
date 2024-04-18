@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+  backup:
+    build:
+      context: ./backup/
+  restart: unless-stopped
+  volumes:
+    - ./borgdir/cache:/root/.cache/borg # this is where the local borg cache resides
+    - ./borgdir/repo:/borgdir # this is where the local borg repo resides
+    - ./borgdir/stats:/root/stats # this is where stats are output
+    # both of these preceeding entries must persist from run to run - see borg docs for more info
+
+    # example configuration
+    # - /path/to/backup:/backups/backupTitle:ro
+    # - /path/to/rclone.conf:/rclone.conf:ro
+  environment:
+    - BACKUP_TITLE="My-Stuff"
+    - TZ=America/Chicago
+    - RCLONE_REMOTE_NAME="My-Remote"
+    - KEEP_STATS=true
+    # - BACKUP_15MIN=true
+    # - BACKUP_HOURLY
+    - BACKUP_DAILY=true
+    # - BACKUP_WEEKLY
+    # - BACKUP_MONTHLY
+    # - RCLONE_S3_ACCESS_KEY_ID
+    # - RCLONE_S3_SECRET_ACCESS_KEY
