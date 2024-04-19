@@ -4,6 +4,9 @@ BORG_DIR="/borgdir"
 
 if [ ! -d "${BORG_DIR}" ]; then
     borg init -e none "${BORG_DIR}"
+    echo "Created repo at ${BORG_DIR}"
+else
+    echo "Using existing repo at ${BORG_DIR}"
 fi
 
 # BACKUP_TIMESTAMP=$(date -Iseconds)
