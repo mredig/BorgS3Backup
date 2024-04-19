@@ -24,4 +24,4 @@ if [[ $BACKUP_MONTHLY ]]; then
     ln -s /usr/bin/backup.sh /etc/periodic/monthly/
 fi
 
-crond -f &
+crond -f
