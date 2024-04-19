@@ -2,7 +2,7 @@
 
 BORG_DIR="/borgdir"
 
-if [ ! -d "${BORG_DIR}" ]]; then
+if [ ! -d "${BORG_DIR}" ]; then
     borg init -e none "${BORG_DIR}"
 fi
 
