@@ -15,16 +15,16 @@ services:
     # - /path/to/backup:/backups/backupTitle:ro
     # - /path/to/rclone.conf:/rclone.conf:ro
   environment:
-    - BACKUP_TITLE="My-Stuff"
     - TZ=America/Chicago
+    - BACKUP_TITLE="My-Stuff"
     - RCLONE_REMOTE_NAME="My-Remote"
     - RCLONE_REMOTE_BACKUP_PATH="bucket/then/path" # dir with no trailing slash
     - KEEP_STATS=true
     # - BACKUP_15MIN=true
-    # - BACKUP_HOURLY
+    # - BACKUP_HOURLY=true
     - BACKUP_DAILY=true
-    # - BACKUP_WEEKLY
-    # - BACKUP_MONTHLY
+    # - BACKUP_WEEKLY=true
+    # - BACKUP_MONTHLY=true
     # - RCLONE_S3_ACCESS_KEY_ID
     # - RCLONE_S3_SECRET_ACCESS_KEY
     - RCLONE_S3_ACCESS_KEY_ID_FILE=/run/secrets/borg_s3_key
