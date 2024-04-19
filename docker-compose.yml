@@ -32,3 +32,9 @@ services:
   secrets:
     - borg_s3_key
     - borg_s3_secret
+
+secrets:
+  borg_s3_key:
+    external: true
+  borg_s3_secret:
+    external: true
