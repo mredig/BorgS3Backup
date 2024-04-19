@@ -145,6 +145,9 @@ export RCLONE_S3_NO_CHECK_BUCKET=true
 
 RCLONE_COMMAND=("rclone")
 RCLONE_COMMAND+=("-P")
+RCLONE_COMMAND+=("--stats-one-line")
+RCLONE_COMMAND+=("--stats-one-line-date")
+RCLONE_COMMAND+=("--stats=2s")
 RCLONE_COMMAND+=("--config=${RCLONE_CONF_FILE_PATH}")
 RCLONE_COMMAND+=("sync")
 RCLONE_COMMAND+=("${BORG_REPO_PARENT_DIR}/")
