@@ -18,6 +18,7 @@ BORG_REPO_DIR="${BORG_REPO_PARENT_DIR}/backup_repo"
 BORG_BACKUPS_DIR="/backups"
 RCLONE_CONF_FILE_PATH="/rclone.conf"
 
+# https://borgbackup.readthedocs.io/en/stable/usage/general.html#env-vars
 export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
 export BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK=yes
 
@@ -70,6 +71,7 @@ if [[ ! -e "${RCLONE_CONF_FILE_PATH}" ]]; then
     exit 1
 fi
 
+# https://rclone.org/s3/#s3-no-check-bucket for other env var info
 export RCLONE_S3_NO_CHECK_BUCKET=true
 
 RCOMMAND=("rclone")
