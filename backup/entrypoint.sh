@@ -9,6 +9,8 @@
 # RUN_ON_START
 ## end
 
+trap 'echo "Received SIGTERM. Terminating."; exit' SIGTERM
+
 if [[ $BACKUP_15MIN ]]; then
     ln -s /usr/bin/backup.sh /etc/periodic/15min/
 fi
