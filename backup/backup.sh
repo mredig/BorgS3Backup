@@ -30,7 +30,9 @@ else
 fi
 
 if [[ -z "$RCLONE_S3_ACCESS_KEY_ID" ]]; then
+    echo "RCLONE_S3_ACCESS_KEY_ID undefined. Checking for file."
     if [[ "$RCLONE_S3_ACCESS_KEY_ID_FILE" ]]; then
+        echo "RCLONE_S3_ACCESS_KEY_ID_FILE defined. Loading."
         RCLONE_S3_ACCESS_KEY_ID=$(cat "${RCLONE_S3_ACCESS_KEY_ID_FILE}")
     else
         echo "No key provided for RCLONE_S3_ACCESS_KEY_ID - aborting rclone upload".
@@ -39,7 +41,9 @@ if [[ -z "$RCLONE_S3_ACCESS_KEY_ID" ]]; then
 fi
 
 if [[ -z "$RCLONE_S3_SECRET_ACCESS_KEY" ]]; then
+    echo "RCLONE_S3_SECRET_ACCESS_KEY undefined. Checking for file."
     if [[ "$RCLONE_S3_SECRET_ACCESS_KEY_FILE" ]]; then
+        echo "RCLONE_S3_SECRET_ACCESS_KEY_FILE defined. Loading."
         RCLONE_S3_SECRET_ACCESS_KEY=$(cat "${RCLONE_S3_SECRET_ACCESS_KEY_FILE}")
     else
         echo "No key provided for RCLONE_S3_ACCESS_KEY_ID - aborting rclone upload".
@@ -58,5 +62,7 @@ RCOMMAND+=("--config=/rclone.conf")
 RCOMMAND+=("sync")
 RCOMMAND+=("/borgdir/")
 RCOMMAND+=("${RCLONE_REMOTE_NAME}:${RCLONE_REMOTE_BACKUP_PATH}/${BACKUP_TITLE}/")
+
+echo "Running '${COMMAND[@]}'"
 
 "${RCOMMAND[@]}"
