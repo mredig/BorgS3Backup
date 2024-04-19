@@ -6,6 +6,7 @@
 # BACKUP_DAILY
 # BACKUP_WEEKLY
 # BACKUP_MONTHLY
+# RUN_ON_START
 ## end
 
 if [[ $BACKUP_15MIN ]]; then
@@ -22,6 +23,10 @@ if [[ $BACKUP_WEEKLY ]]; then
 fi
 if [[ $BACKUP_MONTHLY ]]; then
     ln -s /usr/bin/backup.sh /etc/periodic/monthly/
+fi
+
+if [[ $RUN_ON_START ]]; then
+    /usr/bin/backup.sh
 fi
 
 crond -f
