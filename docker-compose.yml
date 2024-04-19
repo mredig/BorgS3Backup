@@ -20,7 +20,6 @@ services:
       - RCLONE_REMOTE_NAME=MyRemote
       # dir with no trailing slash
       - RCLONE_REMOTE_BACKUP_PATH=bucket/then/path
-      - KEEP_STATS=true
       # - BACKUP_15MIN=true
       # - BACKUP_HOURLY=true
       - BACKUP_DAILY=true
@@ -31,6 +30,14 @@ services:
       - RCLONE_S3_ACCESS_KEY_ID_FILE=/run/secrets/borg_s3_key
       - RCLONE_S3_SECRET_ACCESS_KEY_FILE=/run/secrets/borg_s3_secret
       - RUN_ON_START=true
+      # see https://borgbackup.readthedocs.io/en/stable/usage/prune.html
+      - PRUNE_KEEP_HOURLY_COUNT=24
+      - PRUNE_KEEP_DAILY_COUNT=21
+      - PRUNE_KEEP_WEEKLY_COUNT=5
+      - PRUNE_KEEP_MONTHLY_COUNT=1
+      # - PRUNE_KEEP_YEARLY_COUNT=0
+      # - PRUNE_KEEP_ALL_WITHIN=48H
+      # - PRUNE_GLOB=My_Stuff*
     secrets:
       - borg_s3_key
       - borg_s3_secret
