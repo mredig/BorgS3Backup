@@ -31,10 +31,10 @@ export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
 export BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK=yes
 
 if [ ! -d "${BORG_REPO_DIR}" ]; then
-    borg init -e none "${BORG_REPO_DIR}"
-    echo "Created repo at ${BORG_REPO_DIR}"
+	borg init -e none "${BORG_REPO_DIR}"
+	echo "Created repo at ${BORG_REPO_DIR}"
 else
-    echo "Using existing repo at ${BORG_REPO_DIR}"
+	echo "Using existing repo at ${BORG_REPO_DIR}"
 fi
 
 THIS_BACKUP_TITLE="${BACKUP_TITLE}-{fqdn}_{now}"
@@ -56,44 +56,44 @@ PRUNE_COMMAND+=("prune")
 PRUNE_COMMAND+=("--list")
 
 if [[ $PRUNE_KEEP_HOURLY_COUNT ]]; then
-    SHOULD_PRUNE=true
-    PRUNE_COMMAND+=("-H")
-    PRUNE_COMMAND+=("${PRUNE_KEEP_HOURLY_COUNT}")
+	SHOULD_PRUNE=true
+	PRUNE_COMMAND+=("-H")
+	PRUNE_COMMAND+=("${PRUNE_KEEP_HOURLY_COUNT}")
 fi
 
 if [[ $PRUNE_KEEP_DAILY_COUNT ]]; then
-    SHOULD_PRUNE=true
-    PRUNE_COMMAND+=("-d")
-    PRUNE_COMMAND+=("${PRUNE_KEEP_DAILY_COUNT}")
+	SHOULD_PRUNE=true
+	PRUNE_COMMAND+=("-d")
+	PRUNE_COMMAND+=("${PRUNE_KEEP_DAILY_COUNT}")
 fi
 
 if [[ $PRUNE_KEEP_WEEKLY_COUNT ]]; then
-    SHOULD_PRUNE=true
-    PRUNE_COMMAND+=("-w")
-    PRUNE_COMMAND+=("${PRUNE_KEEP_WEEKLY_COUNT}")
+	SHOULD_PRUNE=true
+	PRUNE_COMMAND+=("-w")
+	PRUNE_COMMAND+=("${PRUNE_KEEP_WEEKLY_COUNT}")
 fi
 
 if [[ $PRUNE_KEEP_MONTHLY_COUNT ]]; then
-    SHOULD_PRUNE=true
-    PRUNE_COMMAND+=("-m")
-    PRUNE_COMMAND+=("${PRUNE_KEEP_MONTHLY_COUNT}")
+	SHOULD_PRUNE=true
+	PRUNE_COMMAND+=("-m")
+	PRUNE_COMMAND+=("${PRUNE_KEEP_MONTHLY_COUNT}")
 fi
 
 if [[ $PRUNE_KEEP_YEARLY_COUNT ]]; then
-    SHOULD_PRUNE=true
-    PRUNE_COMMAND+=("-y")
-    PRUNE_COMMAND+=("${PRUNE_KEEP_YEARLY_COUNT}")
+	SHOULD_PRUNE=true
+	PRUNE_COMMAND+=("-y")
+	PRUNE_COMMAND+=("${PRUNE_KEEP_YEARLY_COUNT}")
 fi
 
 if [[ $PRUNE_KEEP_ALL_WITHIN ]]; then
-    SHOULD_PRUNE=true
-    PRUNE_COMMAND+=("--keep-within")
-    PRUNE_COMMAND+=("${PRUNE_KEEP_ALL_WITHIN}")
+	SHOULD_PRUNE=true
+	PRUNE_COMMAND+=("--keep-within")
+	PRUNE_COMMAND+=("${PRUNE_KEEP_ALL_WITHIN}")
 fi
 
 if [[ $PRUNE_GLOB ]]; then
-    PRUNE_COMMAND+=("-a")
-    PRUNE_COMMAND+=("${PRUNE_GLOB}")
+	PRUNE_COMMAND+=("-a")
+	PRUNE_COMMAND+=("${PRUNE_GLOB}")
 fi
 
 if [[ $SHOULD_PRUNE == true ]]; then
@@ -112,30 +112,30 @@ fi
 # rclone setup
 
 if [[ -z "$RCLONE_S3_ACCESS_KEY_ID" ]]; then
-    echo "RCLONE_S3_ACCESS_KEY_ID undefined. Checking for file."
-    if [[ "$RCLONE_S3_ACCESS_KEY_ID_FILE" ]]; then
-        echo "RCLONE_S3_ACCESS_KEY_ID_FILE defined. Loading."
-        export RCLONE_S3_ACCESS_KEY_ID=$(cat "${RCLONE_S3_ACCESS_KEY_ID_FILE}")
-    else
-        echo "No key provided for RCLONE_S3_ACCESS_KEY_ID - aborting rclone upload".
-        exit 1
-    fi
+	echo "RCLONE_S3_ACCESS_KEY_ID undefined. Checking for file."
+	if [[ "$RCLONE_S3_ACCESS_KEY_ID_FILE" ]]; then
+		echo "RCLONE_S3_ACCESS_KEY_ID_FILE defined. Loading."
+		export RCLONE_S3_ACCESS_KEY_ID=$(cat "${RCLONE_S3_ACCESS_KEY_ID_FILE}")
+	else
+		echo "No key provided for RCLONE_S3_ACCESS_KEY_ID - aborting rclone upload".
+		exit 1
+	fi
 fi
 
 if [[ -z "$RCLONE_S3_SECRET_ACCESS_KEY" ]]; then
-    echo "RCLONE_S3_SECRET_ACCESS_KEY undefined. Checking for file."
-    if [[ "$RCLONE_S3_SECRET_ACCESS_KEY_FILE" ]]; then
-        echo "RCLONE_S3_SECRET_ACCESS_KEY_FILE defined. Loading."
-        export RCLONE_S3_SECRET_ACCESS_KEY=$(cat "${RCLONE_S3_SECRET_ACCESS_KEY_FILE}")
-    else
-        echo "No key provided for RCLONE_S3_ACCESS_KEY_ID - aborting rclone upload".
-        exit 1
-    fi
+	echo "RCLONE_S3_SECRET_ACCESS_KEY undefined. Checking for file."
+	if [[ "$RCLONE_S3_SECRET_ACCESS_KEY_FILE" ]]; then
+		echo "RCLONE_S3_SECRET_ACCESS_KEY_FILE defined. Loading."
+		export RCLONE_S3_SECRET_ACCESS_KEY=$(cat "${RCLONE_S3_SECRET_ACCESS_KEY_FILE}")
+	else
+		echo "No key provided for RCLONE_S3_ACCESS_KEY_ID - aborting rclone upload".
+		exit 1
+	fi
 fi
 
 if [[ ! -e "${RCLONE_CONF_FILE_PATH}" ]]; then
-    echo "No rclone config file at /rclone.conf! aborting"
-    exit 1
+	echo "No rclone config file at /rclone.conf! aborting"
+	exit 1
 fi
 
 # rclone run
