@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-BORG_DIR="/borgdir"
+BORG_DIR="/borgdir/backup_repo"
 
 if [ ! -d "${BORG_DIR}" ]; then
     borg init -e none "${BORG_DIR}"
