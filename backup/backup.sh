@@ -4,9 +4,11 @@
 # '?' indicates optional
 # RCLONE_S3_ACCESS_KEY_ID
 # RCLONE_S3_SECRET_ACCESS_KEY
+# BORG_PASSPHRASE
 #   OR
 # RCLONE_S3_ACCESS_KEY_ID_FILE
 # RCLONE_S3_SECRET_ACCESS_KEY_FILE
+# BORG_PASSPHRASE_FILE
 #
 # BACKUP_TITLE
 # RCLONE_REMOTE_NAME
@@ -26,12 +28,23 @@ BORG_REPO_DIR="${BORG_REPO_PARENT_DIR}/backup_repo"
 BORG_BACKUPS_DIR="/backups"
 RCLONE_CONF_FILE_PATH="/rclone.conf"
 
+if [[ -z "$BORG_PASSPHRASE" ]]; then
+	echo "BORG_PASSPHRASE undefined. Checking for file."
+	if [[ "$BORG_PASSPHRASE_FILE" ]]; then
+		echo "BORG_PASSPHRASE_FILE defined. Loading."
+		export BORG_PASSPHRASE=$(cat "${BORG_PASSPHRASE_FILE}")
+	else
+		echo "No key provided for BORG_PASSPHRASE - aborting borg backup".
+		exit 1
+	fi
+fi
+
 # https://borgbackup.readthedocs.io/en/stable/usage/general.html#env-vars
 export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
 export BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK=yes
 
 if [ ! -d "${BORG_REPO_DIR}" ]; then
-	borg init -e none "${BORG_REPO_DIR}"
+	borg init -e repokey "${BORG_REPO_DIR}"
 	echo "Created repo at ${BORG_REPO_DIR}"
 else
 	echo "Using existing repo at ${BORG_REPO_DIR}"
@@ -145,6 +158,7 @@ export RCLONE_S3_NO_CHECK_BUCKET=true
 
 RCLONE_COMMAND=("rclone")
 RCLONE_COMMAND+=("-P")
+RCLONE_COMMAND+=("-v")
 RCLONE_COMMAND+=("--stats-one-line")
 RCLONE_COMMAND+=("--stats-one-line-date")
 RCLONE_COMMAND+=("--stats=2s")
