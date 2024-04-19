@@ -16,9 +16,10 @@ services:
       # - /path/to/rclone.conf:/rclone.conf:ro
     environment:
       - TZ=America/Chicago
-      - BACKUP_TITLE="My-Stuff"
-      - RCLONE_REMOTE_NAME="My-Remote"
-      - RCLONE_REMOTE_BACKUP_PATH="bucket/then/path" # dir with no trailing slash
+      - BACKUP_TITLE=My_Stuff
+      - RCLONE_REMOTE_NAME=MyRemote
+      # dir with no trailing slash
+      - RCLONE_REMOTE_BACKUP_PATH=bucket/then/path
       - KEEP_STATS=true
       # - BACKUP_15MIN=true
       # - BACKUP_HOURLY=true
