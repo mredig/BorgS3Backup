@@ -48,3 +48,5 @@ secrets:
     external: true
   borg_s3_secret:
     external: true
+  borg_encryption_passphrase:
+    external: true
